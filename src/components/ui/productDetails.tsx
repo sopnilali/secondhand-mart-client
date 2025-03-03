@@ -1,15 +1,46 @@
-"use client";
+'use client'
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button"; // Adjust the import path
+import { useUser } from "@/context/UserContext";
+import { toast } from "sonner";
+import { addToWish } from "@/services/AddWish";
+import BuyNowButton from "./core/BuyNowButton";
 
 const ProductDetails = ({ product }: any) => {
   const router = useRouter();
 
+  const { user, setIsLoading } = useUser();
+
   const handleGoBack = () => {
     router.back(); // Navigate back to the previous page
   };
+
+  const handleAddWishe: any = async (id: string) => {
+
+    if (!user) {
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        toast.error("You need to be logged in to add a wishlist.");
+        // Redirect to the login page after showing the toast message
+        router.push('/login'); // Replace '/login' with your actual login page route
+      }, 2000);
+
+      return;
+    } else {
+      const result = await addToWish({ product: id, email: user?.userEmail })
+
+      if (result.success) {
+        toast.success(result.message);
+      } else {
+        toast.error(result.message);
+      }
+    }
+
+
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -34,7 +65,7 @@ const ProductDetails = ({ product }: any) => {
             />
           </div>
           <div className="grid grid-cols-3 gap-4">
-            {product.images.slice(1).map((image : any, index : any) => (
+            {product.images.slice(1).map((image: any, index: any) => (
               <div
                 key={index}
                 className="relative h-24 w-full rounded-md overflow-hidden"
@@ -72,9 +103,9 @@ const ProductDetails = ({ product }: any) => {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex space-x-4">
-            <Button className="bg-green-600 hover:bg-green-700">Buy Now</Button>
-            <Button className="bg-gray-600 hover:bg-gray-700">Add to Wish</Button>
+          <div className="flex gap-3 ">
+            <BuyNowButton productId={product._id} />
+            <Button onClick={() => handleAddWishe(product._id)} className="bg-gray-600 hover:bg-gray-700">Add to Wish</Button>
           </div>
         </div>
       </div>

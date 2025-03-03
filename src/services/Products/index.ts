@@ -68,6 +68,7 @@ export const addProduct = async (productData: FormData): Promise<any> => {
       body: productData,
       headers: {
         Authorization: (await cookies()).get("accessToken")!.value,
+        'Content-Type': 'application/json',
       },
     });
     revalidateTag("listings");
@@ -90,6 +91,7 @@ export const updateProduct = async (
         body: productData,
         headers: {
           Authorization: (await cookies()).get("accessToken")!.value,
+          'Content-Type': 'application/json',
         },
       }
     );
