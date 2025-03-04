@@ -17,9 +17,9 @@ const AvailableProducts = async() => {
     <SHContainer>
       <SectionTitle title='Available Products'/>
       {/* Add products here */}
-      {filteredProducts.length > 0 ? <div key={filteredProducts?._id} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-2 ">
+      {filteredProducts.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-2 ">
         {filteredProducts?.map((product: TListings, idx: number) => (
-         <ProductCard product={product}></ProductCard>
+         <ProductCard key={idx} product={product}></ProductCard>
         ))}
       </div>: <div >Not Available</div>}
     </SHContainer>
