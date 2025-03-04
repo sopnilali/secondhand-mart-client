@@ -12,7 +12,9 @@ export const getAllListing = async () => {
 
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/listings`, {
+    
       next: {
+        revalidate: 5,
         tags: ["LISTING"],
       },
     });
@@ -30,9 +32,11 @@ export const getSinglelisting = async (productId: string) => {
       `${process.env.NEXT_PUBLIC_BASE_API}/listings/${productId}`,
       {
         next: {
+          revalidate: 5,
           tags: ["LISTING"],
         },
       }
+      
     );
     const data = await res.json();
     return data;
