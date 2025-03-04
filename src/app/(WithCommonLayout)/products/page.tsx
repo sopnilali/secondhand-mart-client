@@ -20,7 +20,6 @@ const ProductPage = async() => {
     <div>
           <SHContainer>
           <ManageProducts products={filteredProducts || []}/>
-          <div></div>
           </SHContainer>
     </div>
   )
