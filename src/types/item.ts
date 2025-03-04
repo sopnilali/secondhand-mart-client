@@ -1,3 +1,5 @@
+import { IUser } from "./user"
+
 export interface TItem {
     title: string
     description: string
@@ -5,6 +7,6 @@ export interface TItem {
     condition: string
     category: string[]
     images: string[]
-    userID: string
+    userID: IUser
     status: string
 }

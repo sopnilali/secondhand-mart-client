@@ -8,29 +8,10 @@ import { cookies } from "next/headers";
 
 
 
-export const getAllProducts = async (page?: string, limit?: string, query?: { [key: string]: string[] } | undefined) => {
-
-  const params = new URLSearchParams();
-
-  if (query?.price) {
-    params.append("minPrice", "0");
-    params.append("maxPrice", query?.price.toString());
-  }
-
-  if (query?.title) {
-    params.append("title", query?.category.toString());
-  }
-  if (query?.description) {
-    params.append("description", query?.description.toString());
-  }
-
-  if (query?.condition) {
-    params.append("condition", query?.condition.toString());
-  }
-
+export const getAllListing = async () => {
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/listings?limit=${limit}&page=${page}&${params}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/listings`, {
       next: {
         tags: ["listings"],
       },
@@ -43,7 +24,7 @@ export const getAllProducts = async (page?: string, limit?: string, query?: { [k
 };
 
 // get single product
-export const getSingleProduct = async (productId: string) => {
+export const getSinglelisting = async (productId: string) => {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/listings/${productId}`,
@@ -61,17 +42,16 @@ export const getSingleProduct = async (productId: string) => {
 };
 
 // add product
-export const addProduct = async (productData: FormData): Promise<any> => {
+export const addListing = async (productData: FormData): Promise<any> => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/listings`, {
       method: "POST",
       body: productData,
       headers: {
         Authorization: (await cookies()).get("accessToken")!.value,
-        'Content-Type': 'application/json',
       },
     });
-    revalidateTag("listings");
+    revalidateTag("LISTING");
     return res.json();
   } catch (error: any) {
     return Error(error.message);
@@ -79,7 +59,7 @@ export const addProduct = async (productData: FormData): Promise<any> => {
 };
 
 // update product
-export const updateProduct = async (
+export const updateLising = async (
   productData: FormData,
   productId: string
 ): Promise<any> => {
@@ -91,11 +71,10 @@ export const updateProduct = async (
         body: productData,
         headers: {
           Authorization: (await cookies()).get("accessToken")!.value,
-          'Content-Type': 'application/json',
         },
       }
     );
-    revalidateTag("listings");
+    revalidateTag("LISTING");
     return res.json();
   } catch (error: any) {
     return Error(error.message);
@@ -104,7 +83,7 @@ export const updateProduct = async (
 
 
 // update product
-export const deleteProduct = async (
+export const deleteListing = async (
   productId: string
 ): Promise<any> => {
   try {
@@ -117,7 +96,7 @@ export const deleteProduct = async (
         },
       }
     );
-    revalidateTag("listings");
+    revalidateTag("LISTING");
     return res.json();
   } catch (error: any) {
     return Error(error.message);

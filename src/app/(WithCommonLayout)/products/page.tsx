@@ -1,9 +1,8 @@
 import SHContainer from '@/components/ui/core/SHContainer';
-import ItemCard from '@/components/ui/ItemCard';
-import { getAllProducts } from '@/services/Products'
-import { TListings } from '@/types/product';
+import { getAllListing } from '@/services/listing'
 import { Metadata } from 'next';
 import React from 'react'
+import ManageProducts from '@/components/modules/products';
 
 export const metadata : Metadata = {
   title: 'All Products',
@@ -13,16 +12,15 @@ export const metadata : Metadata = {
 
 const ProductPage = async() => {
 
-  const {data: products} = await getAllProducts();
+  const {data: products} = await getAllListing();
+
+  const filteredProducts = products.result.filter((p : any) => p.status === "available");
 
   return (
     <div>
           <SHContainer>
-          {products.result.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-2 ">
-        {products.result?.map((category: TListings, idx: number) => (
-          <ItemCard key={idx} item={category} />
-        ))}
-      </div>: <div >Not Available</div>}
+          <ManageProducts products={filteredProducts || []}/>
+          <div></div>
           </SHContainer>
     </div>
   )

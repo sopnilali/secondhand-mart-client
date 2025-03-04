@@ -4,7 +4,7 @@
 import { useRouter } from 'next/navigation'; // Use 'next/navigation' instead of 'next/router'
 import { useUser } from '@/context/UserContext'; // Adjust the import path as needed
 import { toast } from 'sonner';
-import { addTransaction } from '@/services/Transaction';
+import { addTransaction, updateStatusTransaction } from '@/services/Transaction';
 import { Button } from '../button';
 
 interface BuyNowButtonProps {
@@ -31,9 +31,21 @@ const BuyNowButton = ({ productId }: BuyNowButtonProps) => {
     // Add your logic to call the API and add the product to the wishlist
     try {
       const response = await addTransaction({itemID: productId})
+      console.log(response)
 
       if (response.success) {
         toast.success(response.message);
+        // Simulate payment process after 3 seconds
+        const result = await updateStatusTransaction(response.data._id)
+      
+        if (result){
+          setTimeout(() => {
+            const paymentURL = response?.data?.paymentURL;
+            if (paymentURL) {
+              router.push(paymentURL);
+            }
+          }, 3000)
+        }
       } else {
         toast.error(response.message);
       }
@@ -44,7 +56,7 @@ const BuyNowButton = ({ productId }: BuyNowButtonProps) => {
   };
 
   return (
-    <Button onClick={handleAddBuy} className="bg-green-600 right-0 bottom-1 hover:bg-green-700" >
+    <Button onClick={handleAddBuy} className=" bg-green-600 hover:bg-green-700 flex-1 cursor-pointer w-full" >
       Buy Now
     </Button>
   );

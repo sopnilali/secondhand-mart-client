@@ -1,14 +1,12 @@
-
-
-import ProductDetails from '@/components/ui/productDetails';
-import { getSingleProduct } from '@/services/Products';
+import ProductDetails from '@/components/modules/products/productDetails';
+import { getSinglelisting } from '@/services/listing';
 import React from 'react'
 
 const ProductDetailsPage = async({ params }: any) => {
 
   const {id} = await params
 
-    const {data: productDetails} = await getSingleProduct(id)
+    const {data: productDetails} = await getSinglelisting(id)
 
     return (
       <div>
