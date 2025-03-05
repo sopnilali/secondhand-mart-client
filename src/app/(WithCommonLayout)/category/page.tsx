@@ -10,7 +10,7 @@ const CategoryPage = async() => {
   return (
     <div>
       <SHContainer>
-        <ManageCategory categories={categoryData} />
+        <ManageCategory categories={categoryData } />
       </SHContainer>
     </div>
   )

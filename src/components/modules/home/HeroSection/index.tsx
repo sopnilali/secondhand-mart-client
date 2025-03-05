@@ -22,14 +22,11 @@ const HeroSection = () => {
               Save big this Black Friday with unbeatable deals on tech, home
               essentials, fashion, and more! Limited stock.
             </p>
-            <Button size="lg" className="mr-5 rounded-full">
-              Buy Now
-            </Button>
             <Link href={'/products'}><Button
               size="lg"
-              className="rounded-full bg-white text-black hover:bg-gray-100"
+              className="bg-gradient-to-r from-[#e5532a] to-[#d1461cd2] px-6 py-2 rounded-full text-white text-[14px] shadow-md transform transition-transform duration-300 hover:scale-105 hover:from-[#e5532a] hover:to-[#e5532a] hover:shadow-lg active:scale-75 focus:outline-none cursor-pointer"
             >
-              All Products
+            Get Started
             </Button></Link>
           </div>
           <div className="flex items-center justify-center">

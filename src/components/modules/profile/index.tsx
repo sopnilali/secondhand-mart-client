@@ -25,7 +25,7 @@ const ManageProfile = ({ user }: { user: IUser }) => {
 
     const { _id, name, email, phonenumber, role, createdAt } = user;
     const { setIsLoading } = useUser();
-    const router =useRouter();
+    const router = useRouter();
 
     const form = useForm({
         defaultValues: {
@@ -41,7 +41,10 @@ const ManageProfile = ({ user }: { user: IUser }) => {
             const res = await updateUser(_id, data)
             if (res.success) {
                 toast.success(res.message, { id: toastLoading })
+                setIsLoading(true)
+                router.push('/dashboard/profile')
                 reset();
+                
             } else if (res.err) {
                 toast.error(res?.message || "Something went wrong!", { id: toastLoading })
             }
@@ -74,28 +77,27 @@ const ManageProfile = ({ user }: { user: IUser }) => {
 
                 {/* User Details */}
                 <div >
-                    <h2 className="text-2xl font-semibold mt-4 text-[#ff8e00]">My Profile</h2>
-                    <hr className="w-full border-[#ff8e00] border-2" />
+                    <h2 className="text-2xl font-semibold mt-4 text-[#e5532a]">My Profile</h2>
+                    <hr className="w-full border-[#e5532a] border-2" />
                     <div className="flex items-center gap-2">
-                        <h2 className="text-2xl font-semibold mt-4 text-gray-800">{name}</h2>
-                        <p className="text-[#ff8e00] text-sm capitalize border border-[#ff8e00] rounded-full h-[25px] flex justify-center items-center px-2 py-1">{role || "User"}</p>
+                        <h2 className="text-2xl font-semibold mt-4 text-gray-800 capitalize">{name}</h2>
                     </div>
                     <div className="space-y-4 my-4">
 
                         <div className="flex items-center gap-3 text-gray-700">
-                            <Mail className="w-5 h-5 text-[#ff8e00]" />
+                            <Mail className="w-5 h-5 text-[#e5532a]" />
                             <span className="text-sm">{email}</span>
                         </div>
                         <div className="flex items-center gap-3 text-gray-700">
-                            <Phone className="w-5 h-5 text-[#ff8e00]" />
+                            <Phone className="w-5 h-5 text-[#e5532a]" />
                             <span className="text-sm">{phonenumber || "Not Available"}</span>
                         </div>
                         <div className="flex items-center gap-3 text-gray-700">
-                            <Shield className="w-5 h-5 text-[#ff8e00]" />
+                            <Shield className="w-5 h-5 text-[#e5532a]" />
                             <span className="text-sm capitalize">{role || "User"}</span>
                         </div>
                         <div className="flex items-center gap-3 text-gray-700">
-                            <Calendar className="w-5 h-5 text-[#ff8e00]" />
+                            <Calendar className="w-5 h-5 text-[#e5532a]" />
                             <span className="text-sm">
                                 Joined on {new Date(createdAt).toLocaleDateString()}
                             </span>
@@ -106,14 +108,14 @@ const ManageProfile = ({ user }: { user: IUser }) => {
                             <Dialog>
                                 <DialogTrigger asChild>
                                     <div className="flex justify-end">
-                                        <Button className="bg-gradient-to-r from-[#ffbe0c] to-[#ff8e00] px-8 py-6 rounded-[4px] text-white font-semibold text-[18px] shadow-md transform transition-transform duration-300 hover:scale-105 hover:from-[#e9a912] hover:to-[#ff6f00] hover:shadow-lg active:scale-95 focus:outline-none cursor-pointer">
+                                        <Button className=" bg-gradient-to-r from-[#e5532a] to-[#d1461cd2] px-4 py-2 rounded-md text-white text-[14px] shadow-md transform transition-transform duration-300 hover:scale-105 hover:from-[#e5532a] hover:to-[#e5532a] hover:shadow-lg active:scale-75 focus:outline-none cursor-pointer">
                                             <Edit /> Edit Profile
                                         </Button>
                                     </div>
                                 </DialogTrigger>
                                 <DialogContent className="sm:max-w-[425px]">
                                     <DialogHeader>
-                                        <DialogTitle className="text-center text-2xl text-[#ff6f00]">Edit profile</DialogTitle>
+                                        <DialogTitle className="text-center active:scale-95  text-2xl text-[#e5532a] ">Edit profile</DialogTitle>
                                         <DialogDescription>
                                             Make changes to your profile here. Click save when you're done.
                                         </DialogDescription>
@@ -156,7 +158,7 @@ const ManageProfile = ({ user }: { user: IUser }) => {
                                                     </FormItem>
                                                 )}
                                             />
-                                            <Button type="submit" className="bg-gradient-to-r from-[#ffbe0c] w-full to-[#ff8e00] px-8 py-6 rounded-[4px] text-white font-semibold text-[18px] shadow-md transform transition-transform duration-300 hover:scale-105 hover:from-[#e9a912] hover:to-[#ff6f00] hover:shadow-lg active:scale-95 focus:outline-none cursor-pointer">
+                                            <Button type="submit" className="bg-gradient-to-r from-[#e5532a] to-[#d1461cd2] px-6 py-2 rounded-[4px] text-white font-semibold text-[18px] shadow-md transform transition-transform duration-300 hover:scale-105 hover:from-[#e5532a] hover:to-[#e5532a] hover:shadow-lg active:scale-75 focus:outline-none cursor-pointer">
                                                 {isSubmitting ? "Saving..." : "Save"}
                                             </Button>
                                         </form>
@@ -167,7 +169,7 @@ const ManageProfile = ({ user }: { user: IUser }) => {
                         <div>
                             <Dialog>
                                 <DialogTrigger asChild>
-                                    <Button className="bg-gradient-to-r from-[#ff410cd6] to-[#ff0000] px-8 py-6 rounded-[4px] text-white font-semibold text-[18px] shadow-md transform transition-transform duration-300 hover:scale-105 hover:shadow-lg active:scale-95 focus:outline-none cursor-pointer">
+                                    <Button className=" bg-gradient-to-r from-[#ff0c79] to-[#bc0c8a] shadow-md transform transition-transform duration-300 hover:scale-105 hover:from-[#ff0c79] hover:to-[#c32758] hover:shadow-lg active:scale-95 focus:outline-none cursor-pointer">
                                         <Trash /> Delete Profile
                                     </Button>
                                 </DialogTrigger>

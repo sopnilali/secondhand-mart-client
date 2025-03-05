@@ -100,11 +100,11 @@ const ManageSalesHistory = ({ orders }: { orders: ISalesHistory[] }) => {
                                 </DialogHeader>
                                 <div className="flex justify-around items-center">
                                     <DialogClose asChild>
-                                        <Button className=" bg-red-800 cursor-pointer">
+                                        <Button className=" bg-gradient-to-r from-[#2a56e5]  to-[#1c64d1d2] px-9 py-2 rounded-md text-white text-[18px] shadow-md transform transition-transform duration-300 hover:scale-105 hover:from-[#2a4fe5] hover:to-[#1c64d1d2] hover:shadow-lg active:scale-75 focus:outline-none cursor-pointer">
                                             No
                                         </Button>
                                     </DialogClose>
-                                    <Button onClick={()=> handleSalesStatusChange(row?.original?.transactionId)} className=" cursor-pointer">
+                                    <Button onClick={()=> handleSalesStatusChange(row?.original?.transactionId)} className="bg-gradient-to-r from-[#e5532a]  to-[#d1461cd2] px-9 py-2 rounded-md text-white text-[18px] shadow-md transform transition-transform duration-300 hover:scale-105 hover:from-[#e5532a] hover:to-[#e5532a] hover:shadow-lg active:scale-75 focus:outline-none cursor-pointer">
                                         Yes
                                     </Button>
                                 </div>

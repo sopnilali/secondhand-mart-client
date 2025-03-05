@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import React from 'react'
 import ListFilter from './ListFilterSidebar'
 import { ICategory } from '@/types/category'
+import SectionTitle from '@/components/shared/SectionTitle'
 
 interface IManageProductsProps {
   products: TListings[],
@@ -22,10 +23,8 @@ const ManageProducts = ({ products, categories }: IManageProductsProps) => {
     <div>
 
       <div>
-        <h2 className="md:text-3xl text-2xl font-bold text-center ">
-          All Product
-        </h2>
-        <p className=" mt-2 font-medium md:text-xl">
+        <SectionTitle title='All Product'/>
+        <p className=" mt-2 font-medium md:text-xl text-center">
           Discover a wide range of products available at the best prices, handpicked just for you!
         </p>
       </div>
