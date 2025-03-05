@@ -17,9 +17,12 @@ export const getAllCategory = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/category`, {
       next: {
+        revalidate: 5,
         tags: ["CATEGORY"]
       }
-    })
+    }
+
+  )
     const result = await res.json();
     return result;
   } catch (error: any) {
