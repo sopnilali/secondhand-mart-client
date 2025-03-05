@@ -30,9 +30,9 @@ const ManageProducts = ({ products, categories }: IManageProductsProps) => {
       </div>
 
       <div className='md:flex my-8 gap-5'>
-        <div>
+        {/* <div>
         <ListFilter categories={categories?.result} />
-        </div>
+        </div> */}
       {
           search && filterByCategoryProducts?.length > 0 ? <div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-6 md:mt-0 overflow-hidden  mt-8">
           {filterByCategoryProducts?.map((product: TListings, idx: number) => (

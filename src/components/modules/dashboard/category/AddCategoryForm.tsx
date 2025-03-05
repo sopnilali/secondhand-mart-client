@@ -65,7 +65,7 @@ const AddCategoryForm = () => {
     <div>
       <div className="container mx-auto px-4 max-w-4xl">
             <div className="p-8 rounded-xl shadow-xl space-y-6">
-                <h2 className="text-3xl font-semibold text-center text-blue-600 mb-4">Add Category</h2>
+                <h2 className="text-3xl font-semibold text-center text-[#e5532a] mb-4">Add Category</h2>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                         <FormField
@@ -115,7 +115,7 @@ const AddCategoryForm = () => {
                         </div>
 
 
-                        <Button type="submit" className=" w-full text-xl cursor-pointer">
+                        <Button type="submit" className=" w-full bg-gradient-to-r from-[#e5532a] to-[#d1461cd2] px-6 py-2 rounded-[4px] text-white font-semibold text-[18px] shadow-md transform transition-transform duration-300 hover:scale-105 hover:from-[#e5532a] hover:to-[#e5532a] hover:shadow-lg active:scale-75 focus:outline-none cursor-pointer">
                             {isSubmitting ? "Adding..." : "Add"}
                         </Button>
                     </form>

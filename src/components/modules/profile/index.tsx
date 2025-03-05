@@ -78,12 +78,13 @@ const ManageProfile = ({ user }: { user: IUser }) => {
                 {/* User Details */}
                 <div >
                     <h2 className="text-2xl font-semibold mt-4 text-[#e5532a]">My Profile</h2>
-                    <hr className="w-full border-[#e5532a] border-2" />
+                    <hr className="w-full border-[#e5532a] mt-1 border-1" />
                     <div className="flex items-center gap-2">
                         <h2 className="text-2xl font-semibold mt-4 text-gray-800 capitalize">{name}</h2>
                     </div>
                     <div className="space-y-4 my-4">
 
+                        <div className="flex justify-between">
                         <div className="flex items-center gap-3 text-gray-700">
                             <Mail className="w-5 h-5 text-[#e5532a]" />
                             <span className="text-sm">{email}</span>
@@ -92,7 +93,9 @@ const ManageProfile = ({ user }: { user: IUser }) => {
                             <Phone className="w-5 h-5 text-[#e5532a]" />
                             <span className="text-sm">{phonenumber || "Not Available"}</span>
                         </div>
-                        <div className="flex items-center gap-3 text-gray-700">
+                        </div>
+                     <div className="flex justify-between">
+                     <div className="flex items-center gap-3 text-gray-700">
                             <Shield className="w-5 h-5 text-[#e5532a]" />
                             <span className="text-sm capitalize">{role || "User"}</span>
                         </div>
@@ -102,7 +105,9 @@ const ManageProfile = ({ user }: { user: IUser }) => {
                                 Joined on {new Date(createdAt).toLocaleDateString()}
                             </span>
                         </div>
+                     </div>
                     </div>
+                    <hr className="border-b-1 border-[#e5532a]"/>
                     <div className="flex justify-between items-center gap-10 mt-6">
                         <div >
                             <Dialog>
