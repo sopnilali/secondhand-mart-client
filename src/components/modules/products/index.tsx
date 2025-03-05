@@ -5,8 +5,18 @@ import { TListings } from '@/types/product'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
 import ListFilter from './ListFilterSidebar'
+import { ICategory } from '@/types/category'
 
-const ManageProducts = ({ products }: { products: TListings[] }) => {
+interface IManageProductsProps {
+  products: TListings[],
+  categories: ICategory[]
+}
+
+const ManageProducts = ({ products, categories }: IManageProductsProps) => {
+
+  const searchParams = useSearchParams()
+  const search = searchParams.get('category')
+  const filterByCategoryProducts = products?.filter(product => product?.category?.name === search)
 
   return (
     <div>
@@ -25,7 +35,13 @@ const ManageProducts = ({ products }: { products: TListings[] }) => {
         <ListFilter />
         </div>
       {
-          <div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-6 md:mt-0 overflow-hidden  mt-8">
+          search && filterByCategoryProducts?.length > 0 ? <div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-6 md:mt-0 overflow-hidden  mt-8">
+          {filterByCategoryProducts?.map((product: TListings, idx: number) => (
+            <ProductCard key={idx} product={product} />
+          )) ? filterByCategoryProducts?.map((product: TListings, idx: number) => (
+            <ProductCard key={idx} product={product} />
+          )) : <h2>Not avialble Product</h2>}
+        </div> : <div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-6 md:mt-0 overflow-hidden  mt-8">
             {products?.map((product: TListings, idx: number) => (
               <ProductCard key={idx} product={product} />
             )) ? products?.map((product: TListings, idx: number) => (

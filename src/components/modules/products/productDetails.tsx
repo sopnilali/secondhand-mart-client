@@ -83,9 +83,11 @@ const ProductDetails = ({ product }: any) => {
                     <p className="text-gray-500 text-sm">Category: <Link href={`/products?category=${product?.category?.name}`}>{product?.category?.name}</Link></p>
                     <p className="text-gray-700 my-3">{product?.description}</p>
 
-                    <div className="flex items-center space-x-2 text-green-600 font-medium">
+                    {product.status === 'available' ? <div className="flex items-center space-x-2 text-green-600 font-medium">
                         <CheckCircle /> <span>{product?.status.charAt(0).toUpperCase() + product?.status.slice(1)}</span>
-                    </div>
+                    </div>: <div className="flex items-center space-x-2 text-red-600 font-medium">
+                        <CheckCircle /> <span>{product?.status.charAt(0).toUpperCase() + product?.status.slice(1)}</span>
+                    </div>}
 
                     <p className="mt-3 text-xl font-semibold text-[#ff8e00]">Price: ৳{product?.price}</p>
                     <p className="text-gray-600">Condition: {product?.condition?.charAt(0).toUpperCase() + product?.condition.slice(1)}</p>
@@ -112,15 +114,15 @@ const ProductDetails = ({ product }: any) => {
 
           <div className="my-4 space-y-4">
             <div className="flex md:gap-5 gap-2 justify-between">
-              <Button className="bg-blue-600 hover:bg-blue-700 flex-1">
+              <Button disabled={product.status === "sold"} className="bg-blue-600 hover:bg-blue-700 flex-1">
                 Add To Cart
               </Button>
-              <Button onClick={() => handleAddWishe(product?._id)} className="bg-gray-600 hover:bg-gray-700 flex-1">
+              <Button disabled={product.status === "sold"} onClick={() => handleAddWishe(product?._id)} className="bg-gray-600 hover:bg-gray-700 flex-1">
                 Add To Favorite
               </Button>
             </div>
             <div>
-              <BuyNowButton productId={product._id} />
+              <BuyNowButton product={product} />
              
             </div>
           </div>

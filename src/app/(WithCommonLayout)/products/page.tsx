@@ -3,6 +3,7 @@ import { getAllListing } from '@/services/listing'
 import { Metadata } from 'next';
 import React from 'react'
 import ManageProducts from '@/components/modules/products';
+import { getAllCategory } from '@/services/category';
 
 export const metadata : Metadata = {
   title: 'All Products',
@@ -10,16 +11,18 @@ export const metadata : Metadata = {
   keywords: ['products', 'second-hand', 'buy', 'sell'],
 }
 
-const ProductPage = async() => {
+const ProductPage = async({ searchParams }: { searchParams: any }) => {
+  const query = await searchParams;
 
-  const {data: products} = await getAllListing();
-
-  const filteredProducts = products.result.filter((p : any) => p.status === "available");
+  const { data: products } = await getAllListing(undefined, query);
+  const { data: categories } = await getAllCategory();
 
   return (
     <div>
           <SHContainer>
-          <ManageProducts products={filteredProducts || []}/>
+          <ManageProducts products={products.result || [] } categories={categories}  />
+          
+           <h2></h2>
           </SHContainer>
     </div>
   )

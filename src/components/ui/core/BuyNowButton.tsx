@@ -6,12 +6,13 @@ import { useUser } from '@/context/UserContext'; // Adjust the import path as ne
 import { toast } from 'sonner';
 import { addTransaction, updateStatusTransaction } from '@/services/Transaction';
 import { Button } from '../button';
+import { TListings } from '@/types/product';
 
 interface BuyNowButtonProps {
-  productId: string;
+  product: TListings;
 }
 
-const BuyNowButton = ({ productId }: BuyNowButtonProps) => {
+const BuyNowButton = ({ product }: any) => {
   const router = useRouter();
   const { user, setIsLoading } = useUser();
 
@@ -30,7 +31,7 @@ const BuyNowButton = ({ productId }: BuyNowButtonProps) => {
 
     // Add your logic to call the API and add the product to the wishlist
     try {
-      const response = await addTransaction({itemID: productId})
+      const response = await addTransaction({itemID: product?._id})
       console.log(response)
 
       if (response.success) {
@@ -56,7 +57,7 @@ const BuyNowButton = ({ productId }: BuyNowButtonProps) => {
   };
 
   return (
-    <Button onClick={handleAddBuy} className=" bg-green-600 hover:bg-green-700 flex-1 cursor-pointer w-full" >
+    <Button disabled={product.status === "sold"} onClick={handleAddBuy} className=" bg-green-600 hover:bg-green-700 flex-1 cursor-pointer w-full" >
       Buy Now
     </Button>
   );

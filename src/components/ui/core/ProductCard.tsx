@@ -9,7 +9,7 @@ const ProductCard = ({ product  }: {product: TListings}) => {
 
 
   return (
-    <div className="border rounded-lg overflow-hidden h-full shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <div className="border relative rounded-lg overflow-hidden h-full shadow-lg hover:shadow-xl transition-shadow duration-300">
       <div className='flex justify-center'>
         <Image
           src={product?.images[0]} // Display the first image
@@ -18,7 +18,8 @@ const ProductCard = ({ product  }: {product: TListings}) => {
           width={300}
         />
       </div>
-      <div className="p-4">
+      <h2 className='absolute top-4 right-2'>{product.status === "available" ? <p className='text-white px-2 rounded bg-green-600'>Available</p>: <p className='text-white px-2 rounded bg-red-400'>Sold</p>}</h2>
+      <div className="p-4 ">
         <Link href={`/products/${product?._id}`}><h2 className="text-xl font-semibold mb-2">{product?.title}</h2></Link>
         <p className="text-gray-600 mb-2">{product?.description}</p>
         <div className='flex items-center gap-2'>
@@ -27,7 +28,7 @@ const ProductCard = ({ product  }: {product: TListings}) => {
         </div>
         <div className="flex justify-end relative right-0 mt-4">
             <div className='absolute bottom-0 '>
-            <BuyNowButton productId={product?._id}/>
+            <BuyNowButton product={product}/>
             </div>
         </div>
         <div className='flex justify-between'>

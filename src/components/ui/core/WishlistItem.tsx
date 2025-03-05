@@ -31,19 +31,16 @@ const WishlistItem = ({ item }: WishlistItemProps) => {
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <div className="relative h-48">
         <Image
-          src={item.product.images[0]}
-          alt={item.product.title}
+          src={item.product?.images[0]}
+          alt={item.product?.title}
           fill
           className="object-cover"
         />
       </div>
       <div className="p-4">
-        <h2 className="text-xl font-semibold mb-2">{item.product.title}</h2>
-        <p className="text-gray-600">BDT {item.product.price}</p>
+        <h2 className="text-xl font-semibold mb-2">{item?.product?.title}</h2>
+        <p className="text-gray-600">BDT {item.product?.price}</p>
         <div className="mt-4 flex justify-between items-center">
-          <Button className="bg-green-600 right-0 bottom-1 hover:bg-green-700">
-            Buy Now
-          </Button>
           <Button onClick={()=> handleDeleteWish(item)} className=" bg-red-500 hover:bg-red-800">
             Remove
           </Button>
