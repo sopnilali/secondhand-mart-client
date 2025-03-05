@@ -15,7 +15,7 @@ const ProductPage = async({ searchParams }: { searchParams: any }) => {
   const query = await searchParams;
 
   const { data: products } = await getAllListing(undefined, query);
-  const { data: categories } = await getAllCategory();
+  const { data: categories } : any = await getAllCategory();
 
   return (
     <div>
