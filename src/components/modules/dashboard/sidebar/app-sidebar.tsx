@@ -1,21 +1,15 @@
 "use client";
-
-import * as React from "react";
 import {
-    BadgeDollarSign,
-  Bot,
+  BadgeDollarSign,
   CassetteTapeIcon,
-  Frame,
   House,
-  LifeBuoy,
-  Map,
   NotebookTabs,
-  PieChart,
-  Send,
   ShoppingBag,
   SquareTerminal,
   User,
 } from "lucide-react";
+
+import logosidebar from "@/assets/SHIcon.svg"
 
 import {
   Sidebar,
@@ -29,6 +23,7 @@ import {
 import Link from "next/link";
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
+import Image from "next/image";
 
 const data = {
   navMain: [
@@ -49,23 +44,18 @@ const data = {
       icon: NotebookTabs,
     },
     {
-      title: "Manage Order",
-      url: "/dashboard/order",
-      icon: NotebookTabs,
-    },
-    {
       title: "Manage Category",
       url: "/dashboard/category",
       icon: CassetteTapeIcon,
     },
     {
       title: "Track Sales",
-      url: "sales-history",
+      url: "/dashboard/sales-history",
       icon: BadgeDollarSign,
     },
     {
       title: "Profile",
-      url: "dashboard/profile",
+      url: "/dashboard/profile",
       icon: User,
     },
     {
@@ -73,36 +63,7 @@ const data = {
       url: "/",
       icon: House,
     },
-  ],
-  navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
+  ]
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -114,7 +75,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuButton size="lg" asChild>
               <Link href="/">
                 <div className="flex items-center justify-center">
-                  LOGO
+                  <Image src={logosidebar} height={50} width={50} alt="logo"/>
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <h2 className="font-bold text-xl">NextMart</h2>

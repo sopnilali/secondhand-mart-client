@@ -20,6 +20,7 @@ const ProductDetails = ({ product }: any) => {
     router.back(); // Navigate back to the previous page
   };
 
+
   const handleAddWishe: any = async (id: string) => {
 
     if (!user) {
@@ -69,7 +70,7 @@ const ProductDetails = ({ product }: any) => {
 
                     <Image
                         className="w-[300px] h-[200px] object-cover rounded-lg shadow-md absolute left-2 bottom-2 border-8 border-white"
-                        src={product?.images[1]}
+                        src={ product?.images[1] ? product?.images[1] : product?.images[0]}
                         alt={product?.title}
                         width={300}
                         height={200}

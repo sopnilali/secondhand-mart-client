@@ -6,7 +6,6 @@ import { IPurchaseHistory, Itransaction } from "@/types/transaction";
 import { ColumnDef } from "@tanstack/react-table";
 import { Trash } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { toast } from "sonner";
 
 const MangePurchasesHistory = ({ orders }: { orders: any }) => {
@@ -37,7 +36,7 @@ const MangePurchasesHistory = ({ orders }: { orders: any }) => {
                         height={40}
                         className="w-8 h-8 rounded-full border object-cover"
                     />
-                    <Link href={`/dashboard/purchase-history/${row?.original?.transactionID}`} className="hover:text-[#ff8e00]"><span className="truncate">{row.original?.itemID?.title}</span></Link>
+                   <span className="truncate">{row.original?.itemID?.title}</span>
                 </div>
             ),
         },
@@ -74,7 +73,7 @@ const MangePurchasesHistory = ({ orders }: { orders: any }) => {
             cell: ({ row }) => (
                 <>
                     <button
-                        onClick={()=>handleDeleteOrder(row.original.transactionID)}
+                        onClick={()=>handleDeleteOrder(row.original.transactionId)}
                         className="text-red-500 cursor-pointer"
                         title="Delete"
                     >

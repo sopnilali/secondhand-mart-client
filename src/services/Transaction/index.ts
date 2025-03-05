@@ -38,7 +38,6 @@ export const getPaymentDetails = async (transactionId: string) => {
       `${process.env.NEXT_PUBLIC_BASE_API}/transactions/${transactionId}`,
       {
         next: {
-          revalidate: 5,
           tags: ["TRANSACTION"],
         },
       }
@@ -55,9 +54,12 @@ export const getSalesHistory = async (userId: string) => {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/sales/${userId}`,
+      
       {
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+        },
         next: {
-          revalidate: 5,
           tags: ["TRANSACTION"],
         },
       }
@@ -80,7 +82,6 @@ export const getPurchasesHistory = async (userId: string) => {
           Authorization: (await cookies()).get("accessToken")!.value,
         },
         next: {
-          revalidate: 5,
           tags: ["TRANSACTION"],
         },
       }

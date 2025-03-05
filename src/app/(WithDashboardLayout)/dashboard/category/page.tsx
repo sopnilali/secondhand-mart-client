@@ -9,7 +9,7 @@ const CategoryPages = async() => {
 
   return (
     <div>
-      <ManageCategory categories={category.result} />
+      <ManageCategory categories={category.result || []} />
     </div>
   )
 }

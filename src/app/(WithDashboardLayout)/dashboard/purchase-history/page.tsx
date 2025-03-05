@@ -13,7 +13,7 @@ const PurchasesHistoryPage = async() => {
 
   return (
     <div>
-      <MangePurchasesHistory orders={orders}/>
+      <MangePurchasesHistory orders={orders || []}/>
     </div>
   )
 }

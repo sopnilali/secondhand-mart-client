@@ -13,7 +13,7 @@ export type Itransaction = {
 }
 
 export interface IPurchaseHistory {
-    transactionID: string;
+    transactionId: string;
     itemID: TListings;
     buyerID: IUser
     sellerID: IUser
@@ -21,4 +21,15 @@ export interface IPurchaseHistory {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface ISalesHistory {
+    transactionId: string;
+    itemID: TListings;
+    buyerID: IUser
+    sellerID: IUser
+    status: string
+    createdAt: Date;
+    updatedAt: Date;
+}
+
 

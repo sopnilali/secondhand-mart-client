@@ -20,9 +20,7 @@ const ProductPage = async({ searchParams }: { searchParams: any }) => {
   return (
     <div>
           <SHContainer>
-          <ManageProducts products={products.result || [] } categories={categories}  />
-          
-           <h2></h2>
+          <ManageProducts products={products?.result } categories={categories}  />
           </SHContainer>
     </div>
   )

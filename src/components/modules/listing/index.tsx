@@ -35,7 +35,7 @@ const ManageListing = ({ listings }: { listings: any }) => {
                 <div className="flex items-center space-x-3">
                     <Image
                         src={row.original?.images[0]}
-                        alt={row.original.title}
+                        alt={row.original?.title}
                         width={40}
                         height={40}
                         className="w-8 h-8 rounded-full border object-cover"

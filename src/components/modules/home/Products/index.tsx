@@ -10,14 +10,14 @@ const AvailableProducts = async() => {
 
   const { data: products } = await getAllListing();
 
-  const filteredProducts = products.result.filter((p : any) => p.status === "available");
+  const filteredProducts = products?.result?.filter((p : any) => p.status === "available");
 
   return (
     <>
     <SHContainer>
       <SectionTitle title='Available Products'/>
       {/* Add products here */}
-      {filteredProducts.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-2 ">
+      {filteredProducts?.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-2 ">
         {filteredProducts?.map((product: TListings, idx: number) => (
          <ProductCard key={idx} product={product}></ProductCard>
         ))}

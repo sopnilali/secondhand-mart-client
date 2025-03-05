@@ -8,12 +8,12 @@ const ListingPages = async() => {
   const { data } = await getAllListing();
     const {userEmail} = await getCurrentUser();
 
-    const filterListings = data.result?.filter((product : TListings) => product?.userID?.email === userEmail)
+    const filterListings = data?.result?.filter((product : TListings) => product?.userID?.email === userEmail)
 
 
   return (
     <div>
-        <ManageListing listings={filterListings} />
+        <ManageListing listings={filterListings || []} />
     </div>
   )
 }

@@ -6,7 +6,7 @@ import { revalidateTag } from "next/cache";
 
 
 export const registerUser = async (userData: FieldValues) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/users`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/register`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -71,10 +71,13 @@ export const logout = async () => {
     }
 }
 
+
+
 export const getAllUser = async () => {
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/users`,{
             next: {
+                revalidate: 1,
                 tags: ["USER"]
             }
         })
@@ -90,9 +93,26 @@ export const updateUser = async (id: string , data: FieldValues) => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/users/${id}`,{
             method: "PUT",
             headers: {
+                Authorization: (await cookies()).get("accessToken")!.value,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
+        });
+        revalidateTag("USER")
+        const result = await res.json();
+        return result;
+    } catch (error: any) {
+        return Error(error);
+    }
+};
+
+export const deleteUser = async (id: string) => {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/users/${id}`,{
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
         revalidateTag("USER")
         const result = await res.json();

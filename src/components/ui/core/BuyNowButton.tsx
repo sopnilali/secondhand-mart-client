@@ -36,17 +36,12 @@ const BuyNowButton = ({ product }: any) => {
 
       if (response.success) {
         toast.success(response.message);
-        // Simulate payment process after 3 seconds
-        const result = await updateStatusTransaction(response.data._id)
-      
-        if (result){
           setTimeout(() => {
             const paymentURL = response?.data?.paymentURL;
             if (paymentURL) {
               router.push(paymentURL);
             }
           }, 3000)
-        }
       } else {
         toast.error(response.message);
       }

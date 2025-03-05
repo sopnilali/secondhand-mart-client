@@ -31,7 +31,6 @@ export const getAllListing = async (page?: string, limit?: string, query?: { [ke
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/listings?limit=${limit}&page=${page}&${params}`, {
 
       next: {
-        revalidate: 5,
         tags: ["LISTING"],
       },
     });
@@ -49,7 +48,6 @@ export const getSinglelisting = async (productId: string) => {
       `${process.env.NEXT_PUBLIC_BASE_API}/listings/${productId}`,
       {
         next: {
-          revalidate: 5,
           tags: ["LISTING"],
         },
       }

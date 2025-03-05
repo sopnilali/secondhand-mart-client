@@ -16,11 +16,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { registrationSchema } from "./registerValidation";
 import { registerUser } from "@/services/AuthService";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
   const form = useForm({
     resolver: zodResolver(registrationSchema),
   });
+
+    const router = useRouter();
+
 
   const {
     formState: { isSubmitting },
@@ -35,6 +39,7 @@ export default function RegisterForm() {
       const res = await registerUser(data);
       if (res?.success) {
         toast.success(res?.message);
+        router.push('/'); // Use router.push for navigation
       } else {
         toast.error(res?.message);
       }
