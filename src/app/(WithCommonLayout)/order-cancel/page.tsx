@@ -1,13 +1,5 @@
-import { Metadata } from 'next'
+"use client"
 import React from 'react'
-
-
-export const metadata: Metadata = {
-    title: 'Second Hand Marketplace - Order Cancelled',
-    description: 'Order cancelled page of the second hand marketplace',
-    keywords: ['second hand marketplace', 'order cancelled', 'cancel order']
-  
-}
 const OrderCancelPage = () => {
   return (
     <div>

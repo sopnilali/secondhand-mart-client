@@ -1,13 +1,5 @@
-import { Metadata } from 'next'
-import Head from 'next/head'
+"use client"
 
-
-export const metadata : Metadata= {
-    title: 'Order Placed Successfully',
-    description: 'Your order has been placed successfully.',
-    keywords: ['order', 'success', 'second-hand', 'buy', 'sell'],
-  
-}
 const OrderSucessPage = () => {
 
 
