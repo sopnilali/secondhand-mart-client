@@ -14,9 +14,7 @@ const ProfilePage = async() => {
 
   return (
     <div>
-      <SHContainer>
       <ManageProfile user={currentUserData}/>
-      </SHContainer>
     </div>
   )
 }

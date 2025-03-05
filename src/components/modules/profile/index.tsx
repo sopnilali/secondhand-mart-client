@@ -71,9 +71,9 @@ const ManageProfile = ({ user }: { user: IUser }) => {
     }
 
   return (
-    <div>
+    <div  >
       <div className="flex justify-center">
-            <div className="bg-white shadow-xl rounded-lg p-8 flex gap-8">
+            <div className="bg-white shadow-xl max-w-5xl rounded-lg md:p-8 p-3">
 
                 {/* User Details */}
                 <div >
@@ -84,7 +84,7 @@ const ManageProfile = ({ user }: { user: IUser }) => {
                     </div>
                     <div className="space-y-4 my-4">
 
-                        <div className="flex justify-between">
+
                         <div className="flex items-center gap-3 text-gray-700">
                             <Mail className="w-5 h-5 text-[#e5532a]" />
                             <span className="text-sm">{email}</span>
@@ -93,8 +93,6 @@ const ManageProfile = ({ user }: { user: IUser }) => {
                             <Phone className="w-5 h-5 text-[#e5532a]" />
                             <span className="text-sm">{phonenumber || "Not Available"}</span>
                         </div>
-                        </div>
-                     <div className="flex justify-between">
                      <div className="flex items-center gap-3 text-gray-700">
                             <Shield className="w-5 h-5 text-[#e5532a]" />
                             <span className="text-sm capitalize">{role || "User"}</span>
@@ -105,14 +103,13 @@ const ManageProfile = ({ user }: { user: IUser }) => {
                                 Joined on {new Date(createdAt).toLocaleDateString()}
                             </span>
                         </div>
-                     </div>
                     </div>
                     <hr className="border-b-1 border-[#e5532a]"/>
-                    <div className="flex justify-between items-center gap-10 mt-6">
+                    <div className="flex justify-between items-center flex-col md:flex-row gap-2 mt-6">
                         <div >
-                            <Dialog>
+                            <Dialog >
                                 <DialogTrigger asChild>
-                                    <div className="flex justify-end">
+                                    <div className="flex ">
                                         <Button className=" bg-gradient-to-r from-[#e5532a] to-[#d1461cd2] px-4 py-2 rounded-md text-white text-[14px] shadow-md transform transition-transform duration-300 hover:scale-105 hover:from-[#e5532a] hover:to-[#e5532a] hover:shadow-lg active:scale-75 focus:outline-none cursor-pointer">
                                             <Edit /> Edit Profile
                                         </Button>
@@ -181,7 +178,7 @@ const ManageProfile = ({ user }: { user: IUser }) => {
                                 <DialogContent className="sm:max-w-[425px]">
                                     <DialogHeader>
                                         <div className="flex justify-center items-center">
-                                            <Image src={'https://cdn-icons-png.flaticon.com/512/5253/5253450.png'} alt="delete_icon" width={100} height={100} />
+                                            <Image src={'https://cdn-icons-png.flaticon.com/512/5253/5253450.png'} alt="delete_icon" width={50} height={50} />
                                         </div>
                                         <h2 className="text-2xl font-bold text-center text-red-600">Delete Profile</h2>
                                         <DialogDescription className="text-center text-xl">
@@ -190,11 +187,11 @@ const ManageProfile = ({ user }: { user: IUser }) => {
                                     </DialogHeader>
                                     <div className="flex justify-between items-center">
                                         <DialogClose asChild>
-                                            <Button className="bg-gradient-to-r from-[#ffbe0c] to-[#ff8e00] px-8 py-6 rounded-[4px] text-white font-semibold text-[18px] shadow-md transform transition-transform duration-300 hover:scale-105 hover:shadow-lg active:scale-95 focus:outline-none cursor-pointer">
+                                            <Button className="bg-gradient-to-r from-[#4ac28e] to-[#0c6dbc] shadow-md transform transition-transform duration-300 hover:scale-105 hover:from-[#428fb2] hover:to-[#464bd8] hover:shadow-lg active:scale-95 focus:outline-none cursor-pointer">
                                                 <UtensilsCrossed /> No
                                             </Button>
                                         </DialogClose>
-                                        <Button onClick={handleProfileDelete} className="bg-gradient-to-r from-[#ff410cd6] to-[#ff0000] px-8 py-6 rounded-[4px] text-white font-semibold text-[18px] shadow-md transform transition-transform duration-300 hover:scale-105 hover:shadow-lg active:scale-95 focus:outline-none cursor-pointer">
+                                        <Button onClick={handleProfileDelete} className="bg-gradient-to-r px-8 py-2 from-[#ff0c79] to-[#bc0c8a] shadow-md transform transition-transform duration-300 hover:scale-105 hover:from-[#ff0c79] hover:to-[#c32758] hover:shadow-lg active:scale-95 focus:outline-none cursor-pointer">
                                             <Trash /> Yes
                                         </Button>
                                     </div>
