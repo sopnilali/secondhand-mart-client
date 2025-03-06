@@ -13,7 +13,7 @@ const ManageCategory = ({ categories }: { categories: any }) => {
         <SectionTitle title='All Category'/>
         <hr />
         <div className="md:flex my-8 gap-8">
-         {categories?.result?.length > 0 ? <div className="grid mx-auto lg:grid-cols-8 justify-center md:grid-cols-4 grid-cols-2 gap-8 md:mt-0 mt-8">
+         {categories?.result?.length > 0 ? <div  className="grid mx-auto lg:grid-cols-8 justify-center md:grid-cols-4 grid-cols-2 gap-8 md:mt-0 mt-8">
             {categories?.result?.map((category: any) => 
                 <CategoryCard key={category._id} category={category} />
             )}

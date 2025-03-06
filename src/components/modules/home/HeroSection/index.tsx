@@ -13,6 +13,7 @@ const HeroSection = () => {
     <div className="container mx-auto">
       <SHContainer>
         <div
+        data-aos="fade-right"
           className=" rounded-3xl  mt-5">
           <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
             <div className="pl-12">
