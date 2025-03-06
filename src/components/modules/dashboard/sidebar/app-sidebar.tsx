@@ -69,15 +69,15 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
+      <SidebarHeader >
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link href="/">
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center ">
                   <Image src={logosidebar} height={50} width={50} alt="logo"/>
                 </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
+                <div className="grid flex-1 text-left text-sm leading-tight ">
                   <h2 className="font-bold text-xl">NextMart</h2>
                 </div>
               </Link>

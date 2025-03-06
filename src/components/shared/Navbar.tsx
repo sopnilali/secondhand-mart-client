@@ -32,7 +32,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-gray-500 text-white shadow-lg">
+    <nav className="bg-primary hover:bg-primary/90 bg-gradient-to-r from-[#e5532a] to-[#d1461cd2] text-white shadow-lg">
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link href="/" className="text-2xl font-black">
@@ -48,7 +48,7 @@ const Navbar = () => {
 
             <Link key={index} href={`${item.href}`} className={`${pathname === `${item.href}`
               ? "text-black font-bold "
-              : "text-white hover:text-gray-200 "
+              : "text-white hover:text-black  "
               }`}>
               {item.label}
             </Link>
@@ -76,14 +76,14 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-gray-500 text-white p-4">
+        <div className="md:hidden bg-primary hover:bg-primary/90 bg-gradient-to-r from-[#e5532a] to-[#d1461cd2] shadow-lg text-white hover:text-black p-4">
           {navLinks.map((item, index) => (
             <Link
               key={index}
               href={`${item.href}`}
               className={`block py-2 text-lg hover:text-gray-200 ${pathname === `${item.href}`
                 ? "text-black font-bold"
-                : "text-white hover:text-gray-200"
+                : "text-white hover:text-black"
                 }`}
               onClick={() => setIsOpen(false)}
             >
