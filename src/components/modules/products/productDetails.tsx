@@ -80,7 +80,7 @@ const ProductDetails = ({ product }: any) => {
 
                 {/* Product Info Section */}
                 <div>
-                    <h2 className="text-2xl font-semibold text-[#ff8e00]">{product?.title}</h2>
+                    <h2 className="text-2xl font-semibold ">{product?.title}</h2>
                     <p className="text-gray-500 text-sm">Category: <Link href={`/products?category=${product?.category?.name}`}>{product?.category?.name}</Link></p>
                     <p className="text-gray-700 my-3">{product?.description}</p>
 
@@ -90,8 +90,8 @@ const ProductDetails = ({ product }: any) => {
                         <CheckCircle /> <span>{product?.status.charAt(0).toUpperCase() + product?.status.slice(1)}</span>
                     </div>}
 
-                    <p className="mt-3 text-xl font-semibold text-[#ff8e00]">Price: ৳{product?.price}</p>
-                    <p className="text-gray-600">Condition: {product?.condition?.charAt(0).toUpperCase() + product?.condition.slice(1)}</p>
+                    <p className="mt-3  ">Price: <span className="text-xl font-semibold">৳{product?.price}</span></p>
+                    <p className="text-gray-600">Condition: ({product?.condition?.charAt(0).toUpperCase() + product?.condition.slice(1)})</p>
 
 
                     <div className="mt-6 p-5 bg-white rounded-lg shadow-md border border-gray-200">
@@ -115,9 +115,6 @@ const ProductDetails = ({ product }: any) => {
 
           <div className="my-4 space-y-4">
             <div className="flex md:gap-5 gap-2 justify-between">
-              <Button disabled={product.status === "sold"} className="bg-blue-600 hover:bg-blue-700 flex-1">
-                Add To Cart
-              </Button>
               <Button disabled={product.status === "sold"} onClick={() => handleAddWishe(product?._id)} className="bg-gray-600 hover:bg-gray-700 flex-1">
                 Add To Favorite
               </Button>

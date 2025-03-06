@@ -20,6 +20,7 @@ const HomePage = async() => {
 
   return (
     <div>
+
         <HeroSection/>
         <SHContainer>
           <ManageCategory categories={categories}/>
