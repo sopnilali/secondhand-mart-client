@@ -1,21 +1,17 @@
 {
-    "version": 2,
-    "routes": [
+  "rewrites":  [
+      {"source": "/(.*)", "destination": "/"}
+   ]
+   ,
+   "headers": [
       {
-        "src": "/order-fail",
-        "methods": ["GET"],
-        "dest": "/order-fail"
-      },
-      {
-        "src": "/success",
-        "methods": ["GET"], 
-        "dest": "/success"
-      }
-    ],
-    "rewrites": [
-      {
-        "source": "/api/success",
-        "destination": "/api/success.js"
+        "source": "/(.*)",
+        "headers": [
+          { "key": "Access-Control-Allow-Credentials", "value": "true" },
+          { "key": "Access-Control-Allow-Origin", "value": "*" },
+          { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
+          { "key": "Access-Control-Allow-Headers", "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" }
+        ]
       }
     ]
-  }
+}
