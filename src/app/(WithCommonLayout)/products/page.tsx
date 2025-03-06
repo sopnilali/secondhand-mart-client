@@ -13,6 +13,7 @@ export const metadata : Metadata = {
 
 const ProductPage = async({ searchParams }: { searchParams: any }) => {
   const query = await searchParams;
+  
 
   const { data: products } = await getAllListing(undefined, query);
   const { data: categories } : any = await getAllCategory();

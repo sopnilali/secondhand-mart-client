@@ -25,7 +25,7 @@ export function NavUser() {
   const { user, setIsLoading } = useUser();
 
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname : any = usePathname();
 
   const handleLogout = () => {
     logout();

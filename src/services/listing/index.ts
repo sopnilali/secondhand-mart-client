@@ -8,36 +8,54 @@ import { cookies } from "next/headers";
 
 
 
-export const getAllListing = async (page?: string, limit?: string, query?: { [key: string]: string | string[] | undefined }) => {
-
+export const getAllListing = async (
+  page?: string,
+  limit?: string,
+  query?: { [key: string]: string | string[] | undefined }
+) => {
   const params = new URLSearchParams();
 
+  // Add query parameters to URLSearchParams
   if (query?.price) {
-    params.append('minPrice', '0')
-    params.append('maxPrice', query?.price.toString())
+    params.append('minPrice', '0');
+    params.append('maxPrice', query.price.toString());
   }
   if (query?.category) {
-    params.append('category', query?.category.toString())
+    params.append('category', query.category.toString());
   }
   if (query?.condition) {
-    params.append('condition', query?.condition.toString())
+    params.append('condition', query.condition.toString());
   }
   if (query?.status) {
-    params.append('status', query?.status.toString())
+    params.append('status', query.status.toString());
   }
 
+  // Add pagination parameters to URLSearchParams
+  if (page) {
+    params.append('page', page);
+  }
+  if (limit) {
+    params.append('limit', limit);
+  }
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/listings?limit=${limit}&page=${page}&${params}`, {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/listings?${params.toString()}`,
+      {
+        next: {
+          tags: ['LISTING'],
+        },
+      }
+    );
 
-      next: {
-        tags: ["LISTING"],
-      },
-    });
+    if (!res.ok) {
+      throw new Error(`Failed to fetch listings: ${res.statusText}`);
+    }
 
     return res.json();
   } catch (error: any) {
-    return Error(error.message);
+    console.error('Error fetching listings:', error.message);
+    throw new Error(error.message);
   }
 };
 

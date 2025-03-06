@@ -1,69 +1,119 @@
-"use client"
+"use client";
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { ICategory } from '@/types/category';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react'
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
 
 interface IFilterSidebarProps {
-  categories: ICategory[]
+  categories: ICategory[];
 }
 
 const ListFilterSidebar = ({ categories }: IFilterSidebarProps) => {
-
   const [price, setPrice] = useState([0, 1000]);
-  // const router = useRouter();
-
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedConditions, setSelectedConditions] = useState<string[]>([]);
+  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
 
-  console.log(selectedCategories)
- 
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const searchParams: any = useSearchParams();
+  const router = useRouter();
 
-  const handleSearchQuery = (query: string, value: string) => {
+  useEffect(() => {
+    const categoryParams = searchParams.get('category')?.split(',') || [];
+    setSelectedCategories(categoryParams);
+
+    const conditionParams = searchParams.get('condition')?.split(',') || [];
+    setSelectedConditions(conditionParams);
+
+    const statusParams = searchParams.get('status')?.split(',') || [];
+    setSelectedStatuses(statusParams);
+
+    const priceParam = searchParams.get('price');
+    if (priceParam) {
+      setPrice([5000, Number(priceParam)]);
+    }
+  }, [searchParams]);
+
+  const handleSearchQuery = (query: string, value: string | number[]) => {
     const params = new URLSearchParams(searchParams.toString());
-    let updatedCategories: string[] = [];
 
-    // If the query is "price", we only want to set the last price value, not append multiple values
     if (query === 'price') {
-      params.set(query, value);  // Set the latest price
-    } else {
-      const existingValues = params.get(query)?.split(',') || [];
-
-      // If value is already selected, remove it, else add it
-      if (existingValues.includes(value)) {
-        const updatedValues = existingValues.filter((id) => id !== value);
-        if (updatedValues.length > 0) {
-          params.set(query, updatedValues.join(','));
-        } else {
-          params.delete(query);
+      // Handle price filter
+      params.delete('minPrice');
+      params.delete('maxPrice');
+      if (Array.isArray(value)) {
+        params.append('minPrice', '0');
+        params.append('maxPrice', value[1].toString());
+      }
+    } else if (query === 'category') {
+      // Handle category filter
+      params.delete('category');
+      if (selectedCategories.includes(value as string)) {
+        const updatedCategories = selectedCategories.filter((cat) => cat !== value);
+        if (updatedCategories.length > 0) {
+          params.append('category', updatedCategories.join(','));
         }
-        updatedCategories = updatedValues; // Store updated categories here
       } else {
-        existingValues.push(value);
-        params.set(query, existingValues.join(','));
-        updatedCategories = existingValues; // Store updated categories here
+        params.append('category', [...selectedCategories, value].join(','));
+      }
+    } else if (query === 'condition') {
+      // Handle condition filter
+      params.delete('condition');
+      if (selectedConditions.includes(value as string)) {
+        const updatedConditions = selectedConditions.filter((cond) => cond !== value);
+        if (updatedConditions.length > 0) {
+          params.append('condition', updatedConditions.join(','));
+        }
+      } else {
+        params.append('condition', [...selectedConditions, value].join(','));
+      }
+    } else if (query === 'status') {
+      // Handle status filter
+      params.delete('status');
+      if (selectedStatuses.includes(value as string)) {
+        const updatedStatuses = selectedStatuses.filter((stat) => stat !== value);
+        if (updatedStatuses.length > 0) {
+          params.append('status', updatedStatuses.join(','));
+        }
+      } else {
+        params.append('status', [...selectedStatuses, value].join(','));
       }
     }
 
-    // router.push(`${pathname}?${params.toString()}`, { scroll: false });
-
-    // Use updatedCategories here for the category update
-    if (query === 'category') {
-      setSelectedCategories(updatedCategories);
-    }
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
-  // Handle price change
   const handlePriceChange = (val: number[]) => {
     setPrice(val);
-    handleSearchQuery('price', val[1].toString()); // Only update maxPrice, set the last selected price
+    handleSearchQuery('price', val);
   };
 
+  const handleCategoryChange = (category: string) => {
+    const updatedCategories = selectedCategories.includes(category)
+      ? selectedCategories.filter((cat) => cat !== category)
+      : [...selectedCategories, category];
+    setSelectedCategories(updatedCategories);
+    handleSearchQuery('category', category);
+  };
+
+  const handleConditionChange = (condition: string) => {
+    const updatedConditions = selectedConditions.includes(condition)
+      ? selectedConditions.filter((cond) => cond !== condition)
+      : [...selectedConditions, condition];
+    setSelectedConditions(updatedConditions);
+    handleSearchQuery('condition', condition);
+  };
+
+  const handleStatusChange = (status: string) => {
+    const updatedStatuses = selectedStatuses.includes(status)
+      ? selectedStatuses.filter((stat) => stat !== status)
+      : [...selectedStatuses, status];
+    setSelectedStatuses(updatedStatuses);
+    handleSearchQuery('status', status);
+  };
 
   return (
     <div className="md:w-64 bg-white p-4 rounded-xl shadow-md">
@@ -78,11 +128,15 @@ const ListFilterSidebar = ({ categories }: IFilterSidebarProps) => {
             type="number"
             placeholder="Min"
             className="w-1/2 border p-2 rounded"
+            value={price[0]}
+            onChange={(e) => setPrice([Number(e.target.value), price[1]])}
           />
           <input
             type="number"
             placeholder="Max"
             className="w-1/2 border p-2 rounded"
+            value={price[1]}
+            onChange={(e) => setPrice([price[0], Number(e.target.value)])}
           />
         </div>
         <Slider
@@ -96,38 +150,31 @@ const ListFilterSidebar = ({ categories }: IFilterSidebarProps) => {
         <p className="text-sm mt-1">${price[0]} - ${price[1]}</p>
       </div>
 
-
-      
-
-
+      {/* Product Category */}
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-2">Product Category</h3>
-
-        {/* Select Dropdown for Small Screens */}
         <div className="sm:hidden">
           <select
-            onChange={(e) => handleSearchQuery('category', e.target.value)}
+            onChange={(e) => handleCategoryChange(e.target.value)}
             value={searchParams.get('category') || ''}
             className="w-full border p-2 rounded text-[#ff8e00] focus:outline-none focus:ring-2 focus:ring-[#ff8e00]"
           >
             <option value="">Select Category</option>
             {categories?.map((category: ICategory) => (
-              <option key={category?._id} value={category?._id}>
+              <option key={category?._id} value={category?.name}>
                 {category?.name}
               </option>
             ))}
           </select>
         </div>
-
-        {/* Checkboxes for Larger Screens */}
         <div className="hidden sm:block">
           {categories?.map((category: ICategory) => {
-            const isChecked = searchParams.get("category")?.split(",").includes(category?._id);
+            const isChecked = selectedCategories.includes(category?.name);
 
             return (
               <div key={category?._id} className="flex items-center space-x-2 mb-2">
                 <Checkbox
-                  onClick={() => handleSearchQuery("category", category?._id)}
+                  onCheckedChange={() => handleCategoryChange(category?.name)}
                   id={category?.name}
                   checked={isChecked}
                 />
@@ -140,19 +187,12 @@ const ListFilterSidebar = ({ categories }: IFilterSidebarProps) => {
         </div>
       </div>
 
-
-
-
-
-
-      {/* conditions */}
+      {/* Conditions */}
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-2">Condition</h3>
-
-        {/* Select Dropdown for Small Screens */}
         <div className="sm:hidden">
           <select
-            onChange={(e) => handleSearchQuery('condition', e.target.value)}
+            onChange={(e) => handleConditionChange(e.target.value)}
             value={searchParams.get('condition') || ''}
             className="w-full border p-2 rounded text-[#ff8e00] focus:outline-none focus:ring-2 focus:ring-[#ff8e00]"
           >
@@ -164,14 +204,13 @@ const ListFilterSidebar = ({ categories }: IFilterSidebarProps) => {
             ))}
           </select>
         </div>
-
-        {/* Checkboxes for Larger Screens */}
         <div className="hidden sm:block">
           {['new', 'used', 'refurbished'].map((status) => (
             <div key={status} className="flex items-center space-x-2 mb-2">
               <Checkbox
-                onClick={() => handleSearchQuery('condition', status)}
+                onCheckedChange={() => handleConditionChange(status)}
                 id={status}
+                checked={selectedConditions.includes(status)}
               />
               <label htmlFor={status} className="cursor-pointer">
                 {status}
@@ -181,15 +220,12 @@ const ListFilterSidebar = ({ categories }: IFilterSidebarProps) => {
         </div>
       </div>
 
-
       {/* Availability */}
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-2">Availability</h3>
-
-        {/* Select Dropdown for Small Screens */}
         <div className="sm:hidden">
           <select
-            onChange={(e) => handleSearchQuery('status', e.target.value)}
+            onChange={(e) => handleStatusChange(e.target.value)}
             value={searchParams.get('status') || ''}
             className="w-full border p-2 rounded text-[#ff8e00] focus:outline-none focus:ring-2 focus:ring-[#ff8e00]"
           >
@@ -201,14 +237,13 @@ const ListFilterSidebar = ({ categories }: IFilterSidebarProps) => {
             ))}
           </select>
         </div>
-
-        {/* Checkboxes for Larger Screens */}
         <div className="hidden sm:block">
           {["available", "sold"].map((status) => (
             <div key={status} className="flex items-center space-x-2 mb-2">
               <Checkbox
-                onClick={() => handleSearchQuery('status', status)}
+                onCheckedChange={() => handleStatusChange(status)}
                 id={status}
+                checked={selectedStatuses.includes(status)}
               />
               <label htmlFor={status} className="cursor-pointer">
                 {status}
@@ -217,9 +252,8 @@ const ListFilterSidebar = ({ categories }: IFilterSidebarProps) => {
           ))}
         </div>
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default ListFilterSidebar
+export default ListFilterSidebar;
